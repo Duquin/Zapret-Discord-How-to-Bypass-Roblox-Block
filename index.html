@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обход блокировки Roblox | Zapret и мобильные решения</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --gray: #636e72;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #8a7cff 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iYSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48cGF0aCBkPSJNMCA0MEg0MFYwSDB6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii4wNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNhKSIvPjwvc3ZnPg==');
+            opacity: 0.1;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            position: relative;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .roblox-logo {
+            color: #e72424;
+            animation-delay: 0.5s;
+        }
+
+        .zapret-logo {
+            color: #00cec9;
+            animation-delay: 1s;
+        }
+
+        .discord-logo {
+            color: #7289da;
+            animation-delay: 1.5s;
+        }
+
+        /* Main Content */
+        main {
+            padding: 60px 0;
+        }
+
+        section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .method-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .method-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .method-card h3 i {
+            color: var(--primary);
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 2px solid var(--primary);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 5px solid var(--danger);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+        }
+
+        .warning h4 {
+            color: var(--danger);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success {
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+        }
+
+        .success h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Platform Tabs */
+        .platform-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 5px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            min-width: 200px;
+            margin: 5px;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .badge-success {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .method-card {
+                padding: 20px;
+            }
+            
+            .tab {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo roblox-logo">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="logo zapret-logo">
+                    <i class="fas fa-unlock-alt"></i>
+                </div>
+                <div class="logo discord-logo">
+                    <i class="fab fa-discord"></i>
+                </div>
+            </div>
+            <h1>Обход блокировки Roblox</h1>
+            <p>Подробное руководство по доступу к Roblox через Zapret и Discord, а также способы обхода блокировки на мобильных устройствах</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Introduction -->
+        <section id="intro" class="visible">
+            <h2>Что такое блокировка Roblox?</h2>
+            <div class="method-card">
+                <p>В некоторых странах и регионах доступ к Roblox может быть ограничен интернет-провайдерами, учебными заведениями или на государственном уровне. Блокировка обычно происходит путем фильтрации DNS или IP-адресов серверов Roblox.</p>
+                <p>Это руководство поможет вам обойти такие блокировки с помощью специальных инструментов и методов.</p>
+                
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Внимание</h4>
+                    <p>Используйте эти методы только в законных целях и для доступа к контенту, который не запрещен в вашей стране. Автор не несет ответственности за неправомерное использование информации.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zapret + Discord Method -->
+        <section id="zapret-discord">
+            <h2>Обход через Zapret и Discord</h2>
+            <div class="method-card">
+                <h3><i class="fas fa-desktop"></i> Метод для компьютера</h3>
+                <p>Zapret — это инструмент для обхода блокировок, который может использоваться в сочетании с Discord для доступа к Roblox.</p>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Установите Zapret</strong>
+                    <p>Скачайте и установите Zapret с официального сайта или проверенного источника.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Настройте прокси-сервер</strong>
+                    <p>В настройках Zapret укажите прокси-сервер, который не блокирует Roblox. Можно использовать бесплатные или платные прокси.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Используйте Discord как мост</strong>
+                    <p>Discord иногда может служить промежуточным звеном для доступа к играм. Настройте Zapret для работы через Discord, если это возможно в вашем случае.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Запустите Roblox</strong>
+                    <p>После настройки Zapret запустите Roblox. Игра должна подключиться через обходной путь.</p>
+                </div>
+                
+                <div class="success">
+                    <h4><i class="fas fa-check-circle"></i> Преимущества метода</h4>
+                    <p>• Относительно стабильное соединение<br>• Возможность тонкой настройки<br>• Работает с различными блокировками</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile Methods -->
+        <section id="mobile">
+            <h2>Обход блокировки на телефоне</h2>
+            
+            <div class="platform-tabs">
+                <div class="tab active" data-tab="android">Android</div>
+                <div class="tab" data-tab="ios">iOS</div>
+                <div class="tab" data-tab="common">Общие методы</div>
+            </div>
+            
+            <!-- Android Tab -->
+            <div class="tab-content active" id="android-content">
+                <div class="method-card">
+                    <h3><i class="fab fa-android"></i> Для устройств Android</h3>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Используйте VPN</strong>
+                        <p>Установите надежное VPN-приложение из Google Play Store (например, TunnelBear, Windscribe, ProtonVPN).</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Измените DNS</strong>
+                        <p>В настройках Wi-Fi измените DNS на публичные серверы (например, Google DNS: 8.8.8.8 и 8.8.4.4).</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Используйте браузер с VPN</strong>
+                        <p>Установите браузер с встроенным VPN, например Opera VPN, и откройте через него сайт Roblox.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Приложения для обхода блокировок</strong>
+                        <p>Используйте специализированные приложения, такие как 1.1.1.1 от Cloudflare или Speedify.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- iOS Tab -->
+            <div class="tab-content" id="ios-content">
+                <div class="method-card">
+                    <h3><i class="fab fa-apple"></i> Для устройств iOS</h3>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>VPN из App Store</strong>
+                        <p>Установите VPN-приложение из App Store (например, ExpressVPN, NordVPN, CyberGhost).</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Настройки DNS</strong>
+                        <p>Перейдите в Настройки → Wi-Fi, нажмите на иконку "i" рядом с сетью и измените DNS вручную.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Браузеры с функцией VPN</strong>
+                        <p>Используйте браузеры с встроенной защитой, такие как Aloha Browser или Onion Browser.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Профили конфигурации</strong>
+                        <p>Установите профили конфигурации VPN (доступны на некоторых специализированных сайтах).</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Tab -->
+            <div class="tab-content" id="common-content">
+                <div class="method-card">
+                    <h3><i class="fas fa-mobile-alt"></i> Общие методы для всех телефонов</h3>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Использование мобильных данных</strong>
+                        <p>Если Roblox заблокирован только в Wi-Fi сети, попробуйте использовать мобильный интернет.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Вебраузер вместо приложения</strong>
+                        <p>Попробуйте зайти на Roblox через мобильный браузер вместо официального приложения.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Смена региона</strong>
+                        <p>Измените регион в настройках телефона или используйте VPN для выбора другого региона.</p>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Облачные игровые сервисы</strong>
+                        <p>Используйте облачные игровые платформы, такие как GeForce Now или Xbox Cloud Gaming.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison -->
+        <section id="comparison">
+            <h2>Сравнение методов</h2>
+            <div class="comparison">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Метод</th>
+                            <th>Сложность</th>
+                            <th>Эффективность</th>
+                            <th>Безопасность</th>
+                            <th>Скорость</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Zapret + Discord</td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                        </tr>
+                        <tr>
+                            <td>VPN на телефоне</td>
+                            <td><span class="badge badge-success">Низкая</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                        </tr>
+                        <tr>
+                            <td>Изменение DNS</td>
+                            <td><span class="badge badge-success">Низкая</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                            <td><span class="badge badge-success">Высокая</span></td>
+                        </tr>
+                        <tr>
+                            <td>Браузер с VPN</td>
+                            <td><span class="badge badge-success">Низкая</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                            <td><span class="badge badge-warning">Средняя</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Final Recommendations -->
+        <section id="recommendations">
+            <h2>Рекомендации</h2>
+            <div class="method-card">
+                <h3><i class="fas fa-lightbulb"></i> Советы по безопасному использованию</h3>
+                
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Используйте проверенные инструменты</strong>
+                    <p>Скачивайте программы только с официальных сайтов или проверенных источников.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Обратите внимание на политику конфиденциальности</strong>
+                    <p>Перед использованием VPN или других сервисов ознакомьтесь с их политикой конфиденциальности.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Не передавайте личные данные</strong>
+                    <p>Не вводите личную информацию при использовании бесплатных прокси или VPN.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Обновляйте инструменты</strong>
+                    <p>Регулярно обновляйте VPN и другие приложения для обеспечения безопасности.</p>
+                </div>
+                
+                <div class="warning">
+                    <h4><i class="fas fa-exclamation-circle"></i> Важно</h4>
+                    <p>Некоторые методы обхода блокировок могут нарушать условия использования Roblox или вашего интернет-провайдера. Используйте их на свой страх и риск.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p>Данный сайт предоставляет информацию исключительно в образовательных целях.</p>
+            <p>© 2023 Обход блокировки Roblox. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация появления секций при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Табы для мобильных методов
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.getAttribute('data-tab');
+                    
+                    // Удаляем активный класс у всех табов и контента
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Добавляем активный класс к выбранному табу и контенту
+                    tab.classList.add('active');
+                    document.getElementById(`${targetTab}-content`).classList.add('active');
+                });
+            });
+            
+            // Анимация для карточек методов при наведении
+            const methodCards = document.querySelectorAll('.method-card');
+            methodCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Плавная прокрутка для ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
